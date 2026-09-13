@@ -33,45 +33,56 @@ Show the gateway architecture slide.
 
 Say: “The browser never receives signing or payer keys. Our server creates the World RP context, verifies the completed proof with World, and stores only a scoped nullifier and entitlement in Supabase. The protected OpenRouter endpoint uses x402. Blocky402 verifies and settles the Hedera payment, and our agent accepts only the configured network, USDC asset, receiver, and amount.”
 
-## 1:15–1:55 — World Selfie Check, live
+## 1:15–1:35 — Landing page and World request, live
 
-Open the deployed `/demo` route. Point out the integration status and select **Verify for one free call**. Show the QR code, scan it with the World App, and complete the actual Selfie Check.
+Return briefly to the deployed landing page and point at the five-step product flow. Then open `/demo`, point out the healthy World, Hedera, and OpenRouter status indicators, and select **Verify for one free call**. Show the QR code.
 
-Say: “Now I’ll show the real flow. On desktop, Alive402 opens World IDKit. I scan the QR code in the World App and complete Selfie Check. The completed proof returns here, our backend verifies it, and the app creates one promotional session. We do not store selfie images, and we do not claim strict global uniqueness.”
+Say: “This landing page shows the exact product contract: verify, one promotional request, HTTP 402, a capped agent payment, and the unlocked response. On desktop, Alive402 creates a signed World IDKit Selfie Check request and renders this QR code. The browser never receives our RP signing key.”
 
-## 1:55–2:15 — Free request, live
+Say: “This Sandbox account still has an invitation pending for Selfie Check, so it cannot complete enrollment in this recording. The app correctly does not issue a promotional session. I’ll now show the live paid continuation the API serves after a trial is unavailable or consumed.”
 
-Ask: **“Explain ERC-4626 in simple terms.”** Send the request and show the response.
+## 1:35–2:05 — Literal HTTP 402, live
 
-Say: “This first protected inference request is the one promotional call. Its entitlement is consumed atomically, so two parallel requests cannot both take the last free call.”
+Close the QR dialog. In `/demo`, ask: **“Explain ERC-4626 in one sentence.”** and select **Send request**. Keep the red 402 card visible. Optionally show the terminal command and its literal headers:
 
-## 2:15–2:55 — HTTP 402 and paid retry, live
+```cmd
+curl.exe -i -X POST https://alive402.vercel.app/api/demo/inference -H "Content-Type: application/json" --data "{\"prompt\":\"Explain ERC-4626 in one sentence.\"}"
+```
 
-Send the same request again. Keep the HTTP 402 card visible, then select **Run capped agent · pay 0.001 USDC**. Show the settlement state and unlocked answer.
+Say: “Because this browser has no unused promotional entitlement, the protected endpoint returns a real HTTP 402. Here is the literal PAYMENT-REQUIRED header. It specifies Hedera Testnet, Circle test USDC, the configured merchant, and an exact price of 0.001 USDC.”
 
-Say: “The same endpoint now returns an actual HTTP 402 with the canonical PAYMENT-REQUIRED header. The requirement is Hedera Testnet, Circle test USDC, the configured merchant, and 0.001 USDC. Our server-side agent checks that policy, signs the payment, Blocky402 settles it, and the agent retries with PAYMENT-SIGNATURE. The API returns the answer only after PAYMENT-RESPONSE.”
+## 2:05–2:45 — Capped agent payment and retry, live
+
+Back in `/demo`, select **Run capped agent · pay 0.001 USDC**. Show the payment state and unlocked answer.
+
+Say: “The server-side agent accepts only this configured network, asset, receiver, and maximum amount. It signs the x402 payment, Blocky402 verifies and settles it on Hedera, and the agent retries the same request with PAYMENT-SIGNATURE. The answer is returned only after PAYMENT-RESPONSE.”
 
 Open the HashScan link.
 
-Say: “This is the Hedera Testnet transaction for the paid request.”
+Say: “This is the Hedera Testnet settlement transaction for the paid API request.”
 
-## 2:55–3:25 — Provider evidence
+## 2:45–3:10 — Provider evidence
 
 Open the execution receipt and `/dashboard`.
 
-Say: “Providers get a sanitized audit trail: promotional calls, payment challenges, settled calls, failures, and the HashScan-linked receipt. The dashboard is populated from Supabase events, rather than static counters.”
+Say: “Providers receive a sanitized audit trail. The dashboard separates payment challenges, successful settled calls, and failures. This row links to the same HashScan-backed execution receipt.”
 
-## 3:25–3:45 — Reusable builder value and close
+## 3:10–3:35 — Reusable builder value
 
-Open `/builders` and show the SDK middleware, then the package name.
+Open `/builders` and show the generated middleware and `@nikhilraikwar/alive402-sdk` package name.
 
-Say: “Alive402 is reusable infrastructure for AI inference, data APIs, and developer tools. A provider wraps an existing Fetch handler with `@nikhilraikwar/alive402-sdk`, chooses its campaign and price, and gets a fair trial followed by protocol-native agent payments. That is Alive402: one fair trial for people, and direct pay-per-call access for agents.”
+Say: “Alive402 is reusable infrastructure for AI inference, data APIs, and developer tools. A provider wraps an existing Fetch handler, chooses its promotional policy and payment requirement, and gets a fair trial followed by protocol-native agent payments.”
+
+## 3:35–3:50 — Landing page closing
+
+Return to the landing page and show the five-step flow once more.
+
+Say: “Alive402 makes a trial fairer for people and makes the next request payable for agents. One API, one policy layer, and direct settlement on Hedera.”
 
 ## Judge checklist
 
-- World Selfie Check QR and completion are visible.
-- First protected request is free.
-- Second request visibly returns HTTP 402 and PAYMENT-REQUIRED.
+- World Selfie Check QR request is visible; any unavailable Sandbox enrollment is described truthfully.
+- The protected request visibly returns HTTP 402 and PAYMENT-REQUIRED.
 - The capped agent’s exact Hedera payment and the unlocked response are visible.
 - HashScan transaction, execution receipt, dashboard, and SDK integration are visible.
 - The video stays below four minutes at normal speed.
