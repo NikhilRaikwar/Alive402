@@ -754,7 +754,7 @@ function BuilderSection() {
             service in a few lines.
           </p>
           <Button asChild variant="brand" size="landing" className="mt-6 h-11 px-5 shadow-sm">
-            <a href="#demo">
+            <a href="/builders">
               View integration guide <ArrowRight className="size-4" />
             </a>
           </Button>
@@ -865,13 +865,13 @@ function Index() {
           <a href="#how" className="transition-colors hover:text-foreground">
             How it works
           </a>
-          <a href="#builders" className="transition-colors hover:text-foreground">
+          <a href="/builders" className="transition-colors hover:text-foreground">
             For builders
           </a>
         </div>
         <div className="flex items-center justify-end gap-3">
           <Button asChild variant="brand" size="landing" className="h-10 px-5 shadow-sm">
-            <a href="#demo">
+            <a href="/demo">
               Try live <ArrowRight className="size-3.5" />
             </a>
           </Button>
@@ -903,7 +903,7 @@ function Index() {
               size="landing"
               className="min-w-[190px] h-11 text-[13px] shadow-sm"
             >
-              <a href="#demo">
+              <a href="/demo">
                 Try the live service <ArrowRight className="size-4" />
               </a>
             </Button>
@@ -1058,7 +1058,7 @@ function Index() {
               size="landing"
               className="w-full sm:w-auto h-11 px-6 shadow-sm"
             >
-              <a href="#demo">
+              <a href="/demo">
                 Try the live service <ArrowRight className="size-4" />
               </a>
             </Button>
@@ -1080,7 +1080,7 @@ function Index() {
             <a href="#how" className="transition-colors hover:text-foreground">
               How it works
             </a>
-            <a href="#builders" className="transition-colors hover:text-foreground">
+            <a href="/builders" className="transition-colors hover:text-foreground">
               For builders
             </a>
           </div>

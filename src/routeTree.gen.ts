@@ -10,33 +10,193 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuildersRouteImport } from './routes/builders'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DemoRouteImport } from './routes/demo'
+import { Route as DocsRouteImport } from './routes/docs'
+import { Route as ProofRunIdRouteImport } from './routes/proof.$runId'
+import { Route as ApiDemoAgentRunRouteImport } from './routes/api.demo.agent-run'
+import { Route as ApiDemoInferenceRouteImport } from './routes/api.demo.inference'
+import { Route as ApiDemoStateRouteImport } from './routes/api.demo.state'
+import { Route as ApiRunsRunIdRouteImport } from './routes/api.runs.$runId'
+import { Route as ApiWorldSignRouteImport } from './routes/api.world.sign'
+import { Route as ApiWorldVerifyRouteImport } from './routes/api.world.verify'
+import { Route as ApiProvidersSlugEventsRouteImport } from './routes/api.providers.$slug.events'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuildersRoute = BuildersRouteImport.update({
+  id: '/builders',
+  path: '/builders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProofRunIdRoute = ProofRunIdRouteImport.update({
+  id: '/proof/$runId',
+  path: '/proof/$runId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDemoAgentRunRoute = ApiDemoAgentRunRouteImport.update({
+  id: '/api/demo/agent-run',
+  path: '/api/demo/agent-run',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDemoInferenceRoute = ApiDemoInferenceRouteImport.update({
+  id: '/api/demo/inference',
+  path: '/api/demo/inference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDemoStateRoute = ApiDemoStateRouteImport.update({
+  id: '/api/demo/state',
+  path: '/api/demo/state',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRunsRunIdRoute = ApiRunsRunIdRouteImport.update({
+  id: '/api/runs/$runId',
+  path: '/api/runs/$runId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWorldSignRoute = ApiWorldSignRouteImport.update({
+  id: '/api/world/sign',
+  path: '/api/world/sign',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWorldVerifyRoute = ApiWorldVerifyRouteImport.update({
+  id: '/api/world/verify',
+  path: '/api/world/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProvidersSlugEventsRoute = ApiProvidersSlugEventsRouteImport.update({
+  id: '/api/providers/$slug/events',
+  path: '/api/providers/$slug/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/builders': typeof BuildersRoute
+  '/dashboard': typeof DashboardRoute
+  '/demo': typeof DemoRoute
+  '/docs': typeof DocsRoute
+  '/proof/$runId': typeof ProofRunIdRoute
+  '/api/demo/agent-run': typeof ApiDemoAgentRunRoute
+  '/api/demo/inference': typeof ApiDemoInferenceRoute
+  '/api/demo/state': typeof ApiDemoStateRoute
+  '/api/runs/$runId': typeof ApiRunsRunIdRoute
+  '/api/world/sign': typeof ApiWorldSignRoute
+  '/api/world/verify': typeof ApiWorldVerifyRoute
+  '/api/providers/$slug/events': typeof ApiProvidersSlugEventsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/builders': typeof BuildersRoute
+  '/dashboard': typeof DashboardRoute
+  '/demo': typeof DemoRoute
+  '/docs': typeof DocsRoute
+  '/proof/$runId': typeof ProofRunIdRoute
+  '/api/demo/agent-run': typeof ApiDemoAgentRunRoute
+  '/api/demo/inference': typeof ApiDemoInferenceRoute
+  '/api/demo/state': typeof ApiDemoStateRoute
+  '/api/runs/$runId': typeof ApiRunsRunIdRoute
+  '/api/world/sign': typeof ApiWorldSignRoute
+  '/api/world/verify': typeof ApiWorldVerifyRoute
+  '/api/providers/$slug/events': typeof ApiProvidersSlugEventsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/builders': typeof BuildersRoute
+  '/dashboard': typeof DashboardRoute
+  '/demo': typeof DemoRoute
+  '/docs': typeof DocsRoute
+  '/proof/$runId': typeof ProofRunIdRoute
+  '/api/demo/agent-run': typeof ApiDemoAgentRunRoute
+  '/api/demo/inference': typeof ApiDemoInferenceRoute
+  '/api/demo/state': typeof ApiDemoStateRoute
+  '/api/runs/$runId': typeof ApiRunsRunIdRoute
+  '/api/world/sign': typeof ApiWorldSignRoute
+  '/api/world/verify': typeof ApiWorldVerifyRoute
+  '/api/providers/$slug/events': typeof ApiProvidersSlugEventsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/builders'
+    | '/dashboard'
+    | '/demo'
+    | '/docs'
+    | '/proof/$runId'
+    | '/api/demo/agent-run'
+    | '/api/demo/inference'
+    | '/api/demo/state'
+    | '/api/runs/$runId'
+    | '/api/world/sign'
+    | '/api/world/verify'
+    | '/api/providers/$slug/events'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/builders'
+    | '/dashboard'
+    | '/demo'
+    | '/docs'
+    | '/proof/$runId'
+    | '/api/demo/agent-run'
+    | '/api/demo/inference'
+    | '/api/demo/state'
+    | '/api/runs/$runId'
+    | '/api/world/sign'
+    | '/api/world/verify'
+    | '/api/providers/$slug/events'
+  id:
+    | '__root__'
+    | '/'
+    | '/builders'
+    | '/dashboard'
+    | '/demo'
+    | '/docs'
+    | '/proof/$runId'
+    | '/api/demo/agent-run'
+    | '/api/demo/inference'
+    | '/api/demo/state'
+    | '/api/runs/$runId'
+    | '/api/world/sign'
+    | '/api/world/verify'
+    | '/api/providers/$slug/events'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BuildersRoute: typeof BuildersRoute
+  DashboardRoute: typeof DashboardRoute
+  DemoRoute: typeof DemoRoute
+  DocsRoute: typeof DocsRoute
+  ProofRunIdRoute: typeof ProofRunIdRoute
+  ApiDemoAgentRunRoute: typeof ApiDemoAgentRunRoute
+  ApiDemoInferenceRoute: typeof ApiDemoInferenceRoute
+  ApiDemoStateRoute: typeof ApiDemoStateRoute
+  ApiRunsRunIdRoute: typeof ApiRunsRunIdRoute
+  ApiWorldSignRoute: typeof ApiWorldSignRoute
+  ApiWorldVerifyRoute: typeof ApiWorldVerifyRoute
+  ApiProvidersSlugEventsRoute: typeof ApiProvidersSlugEventsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +208,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/builders': {
+      id: '/builders'
+      path: '/builders'
+      fullPath: '/builders'
+      preLoaderRoute: typeof BuildersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proof/$runId': {
+      id: '/proof/$runId'
+      path: '/proof/$runId'
+      fullPath: '/proof/$runId'
+      preLoaderRoute: typeof ProofRunIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/demo/agent-run': {
+      id: '/api/demo/agent-run'
+      path: '/api/demo/agent-run'
+      fullPath: '/api/demo/agent-run'
+      preLoaderRoute: typeof ApiDemoAgentRunRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/demo/inference': {
+      id: '/api/demo/inference'
+      path: '/api/demo/inference'
+      fullPath: '/api/demo/inference'
+      preLoaderRoute: typeof ApiDemoInferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/demo/state': {
+      id: '/api/demo/state'
+      path: '/api/demo/state'
+      fullPath: '/api/demo/state'
+      preLoaderRoute: typeof ApiDemoStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/runs/$runId': {
+      id: '/api/runs/$runId'
+      path: '/api/runs/$runId'
+      fullPath: '/api/runs/$runId'
+      preLoaderRoute: typeof ApiRunsRunIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/world/sign': {
+      id: '/api/world/sign'
+      path: '/api/world/sign'
+      fullPath: '/api/world/sign'
+      preLoaderRoute: typeof ApiWorldSignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/world/verify': {
+      id: '/api/world/verify'
+      path: '/api/world/verify'
+      fullPath: '/api/world/verify'
+      preLoaderRoute: typeof ApiWorldVerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/providers/$slug/events': {
+      id: '/api/providers/$slug/events'
+      path: '/api/providers/$slug/events'
+      fullPath: '/api/providers/$slug/events'
+      preLoaderRoute: typeof ApiProvidersSlugEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BuildersRoute: BuildersRoute,
+  DashboardRoute: DashboardRoute,
+  DemoRoute: DemoRoute,
+  DocsRoute: DocsRoute,
+  ProofRunIdRoute: ProofRunIdRoute,
+  ApiDemoAgentRunRoute: ApiDemoAgentRunRoute,
+  ApiDemoInferenceRoute: ApiDemoInferenceRoute,
+  ApiDemoStateRoute: ApiDemoStateRoute,
+  ApiRunsRunIdRoute: ApiRunsRunIdRoute,
+  ApiWorldSignRoute: ApiWorldSignRoute,
+  ApiWorldVerifyRoute: ApiWorldVerifyRoute,
+  ApiProvidersSlugEventsRoute: ApiProvidersSlugEventsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
