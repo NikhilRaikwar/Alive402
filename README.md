@@ -127,7 +127,7 @@ Copy [`.env.example`](.env.example). Keep all private keys and server credential
 
 ### Publish the SDK
 
-The package is prepared as `@nikhilraikwar/alive402-sdk@0.1.0`. Run:
+The package is prepared as `@nikhilraikwar/alive402-sdk@0.1.1`. Run:
 
 ```powershell
 npm login
