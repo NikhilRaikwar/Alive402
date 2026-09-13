@@ -164,35 +164,35 @@ function DemoPanel() {
     addTimer(() => {
       setScanProgress(60);
       setScanMessage("Waiting for a valid Selfie Check proof...");
-    }, 1300);
+    }, 1200);
 
     addTimer(() => {
       setScanProgress(88);
       setScanMessage("Preparing the promotional entitlement preview...");
-    }, 2600);
+    }, 2400);
 
     addTimer(() => {
       setScanProgress(100);
       setScanMessage("Selfie Verified ✓ 1 Free Promotional Call unlocked!");
       setState("verified");
-    }, 3800);
+    }, 3600);
 
     addTimer(() => {
       setState("call1_typing");
-    }, 5000);
+    }, 4800);
 
     addTimer(() => {
       setState("call1_done");
-    }, 6800);
+    }, 6600);
 
     addTimer(() => {
       setState("call2_402");
-    }, 9200);
+    }, 9800);
 
     addTimer(() => {
       setState("settling");
       setSettleProgress(1);
-    }, 12000);
+    }, 13200);
   };
 
   const reset = () => {
@@ -321,9 +321,9 @@ function DemoPanel() {
               tag: "Hedera x402 Micropayment",
               title: "Call #2 — HTTP 402 Payment",
               lines: isStep3Done
-                ? "Settled 0.01 USDC via Blocky402 on Hedera Testnet. Response unlocked."
+                ? "Settled 0.001 USDC via Blocky402 on Hedera Testnet. Response unlocked."
                 : state === "settling"
-                  ? "Budgeted agent signing and settling 0.01 USDC payment on Hedera..."
+                  ? "Budgeted agent signing and settling 0.001 USDC payment on Hedera..."
                   : isStep3Active
                     ? "Quota reached (0 left). Same API endpoint returns HTTP 402 Payment Required."
                     : "Future calls require micro-payment on Hedera Testnet.",
@@ -333,9 +333,9 @@ function DemoPanel() {
                   ? "Settling..."
                   : isStep3Active
                     ? "HTTP 402"
-                    : "0.01 USDC",
+                    : "0.001 USDC",
               isDone: isStep3Done,
-              cost: "0.01 USDC",
+              cost: "0.001 USDC",
               costStyle: isStep3Done
                 ? "bg-success-soft text-success border-success/20"
                 : isStep3Active
@@ -416,7 +416,7 @@ function DemoPanel() {
                 </span>
               </div>
 
-              {/* Viewfinder Camera Area (Clean Whitish Aesthetic) */}
+              {/* Viewfinder Camera Area */}
               <div className="relative my-3.5 flex min-h-[250px] flex-col items-center justify-center overflow-hidden rounded-xl border border-border/90 bg-background p-6 text-center text-foreground shadow-xs">
                 {/* Corner reticle guides */}
                 <div className="absolute left-3 top-3 size-4 border-l-2 border-t-2 border-primary" />
@@ -489,8 +489,8 @@ function DemoPanel() {
             </div>
           </div>
         ) : (
-          /* AI Assistant & Payment Execution View */
-          <div className="flex flex-col justify-between rounded-xl border border-border bg-soft-blue/35 p-4 sm:p-5">
+          /* AI Assistant & Progressive Execution View */
+          <div className="flex flex-col justify-between rounded-xl border border-border bg-soft-blue/35 p-4 sm:p-5 transition-all">
             <div>
               {/* Assistant Header */}
               <div className="flex items-start justify-between gap-3 px-1 pb-3.5 border-b border-border/60">
@@ -508,8 +508,8 @@ function DemoPanel() {
                 </span>
               </div>
 
-              {/* Call #1 Dialog */}
-              <div className="mt-3.5 space-y-2">
+              {/* Call #1: Free Promotional Query & Response */}
+              <div className="mt-3.5 space-y-2 enter-up">
                 <div className="ml-auto w-fit max-w-[85%] rounded-xl bg-soft-blue px-3.5 py-2 text-[11px] font-medium text-primary border border-primary/10">
                   <div className="flex items-center justify-between gap-2 mb-0.5">
                     <span className="text-[9px] font-bold uppercase tracking-wider text-primary/70">
@@ -522,162 +522,202 @@ function DemoPanel() {
                   <span className="grid size-5.5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
                     <Sparkles className="size-3" />
                   </span>
-                  <p>
-                    ERC-4626 is a standard for tokenized vaults on Ethereum. It defines a common way
-                    for smart contracts to accept deposits, issue share tokens, and manage
-                    withdrawals.
-                  </p>
-                </div>
-              </div>
-
-              {/* Call #2: HTTP 402 Card */}
-              <div className="mt-3.5 rounded-xl border border-destructive/20 bg-danger-soft p-4 enter-up">
-                <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-destructive/10">
-                  <span className="text-[10px] font-semibold text-destructive">
-                    Call #2 — Promotional quota: 0 remaining
-                  </span>
-                  <span className="font-mono text-[9px] bg-destructive/10 text-destructive px-1.5 py-0.5 rounded font-bold">
-                    HTTP 402
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <span className="grid size-5.5 shrink-0 place-items-center rounded-full bg-destructive text-primary-foreground text-[11px] font-bold">
-                    !
-                  </span>
-                  <div>
-                    <h4 className="text-[13px] font-bold text-foreground">
-                      HTTP 402 Payment Required
-                    </h4>
-                    <p className="text-[10px] text-muted-foreground">
-                      Same endpoint. Budgeted agent settles on Hedera to continue.
+                  {state === "call1_typing" ? (
+                    <div className="flex items-center gap-2 text-foreground/80">
+                      <span className="size-1.5 rounded-full bg-primary animate-ping" />
+                      <span className="text-[11px]">Generating promotional response ($0.00)...</span>
+                    </div>
+                  ) : (
+                    <p>
+                      ERC-4626 is a standard for tokenized vaults on Ethereum. It defines a common
+                      way for smart contracts to accept deposits, issue share tokens, and manage
+                      withdrawals.
                     </p>
-                  </div>
+                  )}
                 </div>
-
-                <dl className="mt-3 space-y-1.5 border-t border-destructive/10 pt-2.5 text-[11px]">
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Amount</dt>
-                    <dd className="font-semibold text-foreground">0.01 USDC</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Network</dt>
-                    <dd className="font-semibold text-foreground">Hedera Testnet</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Facilitator</dt>
-                    <dd className="font-semibold text-foreground">Blocky402</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Recipient</dt>
-                    <dd className="font-mono text-[10px] font-semibold text-foreground">
-                      alive402.test
-                    </dd>
-                  </div>
-                </dl>
-
-                <Button
-                  variant="payment"
-                  className="mt-4 h-10.5 w-full text-[12px] font-semibold transition-all shadow-xs cursor-pointer"
-                  onClick={runPaymentManually}
-                  disabled={state === "settling" || state === "settled"}
-                >
-                  <Zap
-                    className={`size-3.5 fill-current text-chart-4 ${
-                      state === "settling" ? "animate-bounce" : ""
-                    }`}
-                  />
-                  {state === "settling"
-                    ? `${steps[Math.max(0, settleProgress - 1)]}...`
-                    : state === "settled"
-                      ? "Payment confirmed ✓"
-                      : "Agent settling payment →"}
-                </Button>
               </div>
 
-              {/* 5-Step Progress Rail */}
-              <div className="mt-4 grid grid-cols-2 gap-x-2 gap-y-3 sm:grid-cols-5 sm:gap-0">
-                {steps.map((label, index) => {
-                  const isStepDone = settleProgress > index || state === "settled";
-                  const isStepCurrent = state === "settling" && settleProgress === index + 1;
-
-                  return (
-                    <div
-                      key={label}
-                      className="relative flex min-w-0 flex-col items-center text-center sm:before:absolute sm:before:left-0 sm:before:right-0 sm:before:top-2.5 sm:before:-z-0 sm:before:h-px sm:before:bg-border first:before:left-1/2 last:before:right-1/2"
-                    >
-                      <span
-                        className={`relative z-10 grid size-5 place-items-center rounded-full border text-[9px] font-bold transition-all ${
-                          isStepDone
-                            ? "border-success bg-success text-primary-foreground scale-105"
-                            : isStepCurrent
-                              ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary/20 scale-110"
-                              : "border-border bg-background text-muted-foreground"
-                        }`}
-                      >
-                        {isStepDone ? <Check className="size-3 stroke-[2.5]" /> : index + 1}
-                      </span>
-                      <span
-                        className={`relative z-10 mt-1.5 max-w-[72px] text-[9px] leading-[1.3] transition-colors ${
-                          isStepDone
-                            ? "font-medium text-foreground"
-                            : isStepCurrent
-                              ? "font-bold text-primary"
-                              : "text-muted-foreground"
-                        }`}
-                      >
-                        {label}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Settlement Proof and Unlocked Response */}
-            {state === "settled" && (
-              <div className="mt-4 space-y-2.5 enter-up">
-                <div className="flex items-center justify-between gap-3 rounded-xl bg-success-soft px-3.5 py-3 border border-success/20">
-                  <div className="flex min-w-0 items-center gap-2.5">
-                    <CheckCircle2 className="size-4.5 shrink-0 text-success" />
-                    <div className="min-w-0">
-                      <strong className="block text-[11px] font-bold text-success">
-                        Settlement: Confirmed
-                      </strong>
-                      <span className="block truncate text-[9px] text-muted-foreground">
-                        Facilitator: Blocky402 · Hedera Testnet (0.0.48291)
-                      </span>
-                    </div>
+              {/* Promotional Quota Status (Shown when Call 1 is finished) */}
+              {state === "call1_done" && (
+                <div className="mt-3 flex items-center justify-between rounded-lg bg-background/80 px-3 py-2 text-[11px] text-muted-foreground border border-border/60 enter-up">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="size-3.5 text-success" />
+                    <span>
+                      Promotional call delivered. Free quota:{" "}
+                      <strong className="text-foreground">0 remaining</strong>
+                    </span>
                   </div>
-                  <a
-                    href="https://hashscan.io/testnet/transaction/0.0.48291"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-background/90 px-2.5 py-1 text-[10px] font-medium text-success border border-success/30 hover:bg-background transition-colors"
-                  >
-                    HashScan <ExternalLink className="size-3" />
-                  </a>
-                </div>
-
-                <div className="flex gap-2.5 rounded-xl bg-background p-3 text-[11px] leading-[1.55] text-muted-foreground border border-border/80">
-                  <span className="grid size-5.5 shrink-0 place-items-center rounded-full bg-success text-primary-foreground">
-                    <Check className="size-3 stroke-[2.5]" />
+                  <span className="text-[10px] text-primary font-medium animate-pulse">
+                    Next query incoming...
                   </span>
-                  <p>
-                    <strong className="text-foreground">Response unlocked:</strong> ERC-4626
-                    converts assets to shares via{" "}
-                    <code className="font-mono text-[10px] bg-muted px-1.5 py-0.5 rounded">
-                      convertToShares()
-                    </code>{" "}
-                    and calculates redemption values via{" "}
-                    <code className="font-mono text-[10px] bg-muted px-1.5 py-0.5 rounded">
-                      convertToAssets()
-                    </code>
-                    .
-                  </p>
                 </div>
-              </div>
-            )}
+              )}
+
+              {/* Call #2: Subsequent Query, HTTP 402 Card & Settlement */}
+              {(state === "call2_402" || state === "settling" || state === "settled") && (
+                <div className="mt-3.5 space-y-2.5 enter-up">
+                  {/* Call #2 Prompt */}
+                  <div className="ml-auto w-fit max-w-[85%] rounded-xl bg-soft-blue px-3.5 py-2 text-[11px] font-medium text-primary border border-primary/10">
+                    <div className="flex items-center justify-between gap-2 mb-0.5">
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-primary/70">
+                        Call #2 · Paid Continuation
+                      </span>
+                    </div>
+                    How do smart contracts calculate asset-to-share conversions in ERC-4626?
+                  </div>
+
+                  {/* HTTP 402 Payment Required Card (Shown while 402 / settling) */}
+                  {(state === "call2_402" || state === "settling") && (
+                    <div className="rounded-xl border border-destructive/20 bg-danger-soft p-4 enter-up">
+                      <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-destructive/10">
+                        <span className="text-[10px] font-semibold text-destructive">
+                          Call #2 — Promotional quota: 0 remaining
+                        </span>
+                        <span className="font-mono text-[9px] bg-destructive/10 text-destructive px-1.5 py-0.5 rounded font-bold">
+                          HTTP 402
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2.5">
+                        <span className="grid size-5.5 shrink-0 place-items-center rounded-full bg-destructive text-primary-foreground text-[11px] font-bold">
+                          !
+                        </span>
+                        <div>
+                          <h4 className="text-[13px] font-bold text-foreground">
+                            HTTP 402 Payment Required
+                          </h4>
+                          <p className="text-[10px] text-muted-foreground">
+                            Same endpoint. Budgeted agent settles on Hedera to continue.
+                          </p>
+                        </div>
+                      </div>
+
+                      <dl className="mt-3 space-y-1.5 border-t border-destructive/10 pt-2.5 text-[11px]">
+                        <div className="flex justify-between">
+                          <dt className="text-muted-foreground">Amount</dt>
+                          <dd className="font-semibold text-foreground">0.001 USDC</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt className="text-muted-foreground">Network</dt>
+                          <dd className="font-semibold text-foreground">Hedera Testnet</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt className="text-muted-foreground">Facilitator</dt>
+                          <dd className="font-semibold text-foreground">Blocky402</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt className="text-muted-foreground">Recipient</dt>
+                          <dd className="font-mono text-[10px] font-semibold text-foreground">
+                            0.0.10522345
+                          </dd>
+                        </div>
+                      </dl>
+
+                      <Button
+                        variant="payment"
+                        className="mt-4 h-10.5 w-full text-[12px] font-semibold transition-all shadow-xs cursor-pointer"
+                        onClick={runPaymentManually}
+                        disabled={state === "settling"}
+                      >
+                        <Zap
+                          className={`size-3.5 fill-current text-chart-4 ${
+                            state === "settling" ? "animate-bounce" : ""
+                          }`}
+                        />
+                        {state === "settling"
+                          ? `${steps[Math.max(0, settleProgress - 1)]}...`
+                          : "Agent settling payment →"}
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* 5-Step Progress Rail (Shown when settling or settled) */}
+                  {(state === "settling" || state === "settled") && (
+                    <div className="mt-3 grid grid-cols-2 gap-x-2 gap-y-3 sm:grid-cols-5 sm:gap-0 enter-up">
+                      {steps.map((label, index) => {
+                        const isStepDone = settleProgress > index || state === "settled";
+                        const isStepCurrent = state === "settling" && settleProgress === index + 1;
+
+                        return (
+                          <div
+                            key={label}
+                            className="relative flex min-w-0 flex-col items-center text-center sm:before:absolute sm:before:left-0 sm:before:right-0 sm:before:top-2.5 sm:before:-z-0 sm:before:h-px sm:before:bg-border first:before:left-1/2 last:before:right-1/2"
+                          >
+                            <span
+                              className={`relative z-10 grid size-5 place-items-center rounded-full border text-[9px] font-bold transition-all ${
+                                isStepDone
+                                  ? "border-success bg-success text-primary-foreground scale-105"
+                                  : isStepCurrent
+                                    ? "border-primary bg-primary text-primary-foreground ring-2 ring-primary/20 scale-110"
+                                    : "border-border bg-background text-muted-foreground"
+                              }`}
+                            >
+                              {isStepDone ? <Check className="size-3 stroke-[2.5]" /> : index + 1}
+                            </span>
+                            <span
+                              className={`relative z-10 mt-1.5 max-w-[72px] text-[9px] leading-[1.3] transition-colors ${
+                                isStepDone
+                                  ? "font-medium text-foreground"
+                                  : isStepCurrent
+                                    ? "font-bold text-primary"
+                                    : "text-muted-foreground"
+                              }`}
+                            >
+                              {label}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Settlement Proof and Unlocked Response for Call #2 */}
+                  {state === "settled" && (
+                    <div className="space-y-2.5 enter-up">
+                      <div className="flex items-center justify-between gap-3 rounded-xl bg-success-soft px-3.5 py-3 border border-success/20">
+                        <div className="flex min-w-0 items-center gap-2.5">
+                          <CheckCircle2 className="size-4.5 shrink-0 text-success" />
+                          <div className="min-w-0">
+                            <strong className="block text-[11px] font-bold text-success">
+                              Settlement: Confirmed (0.001 USDC)
+                            </strong>
+                            <span className="block truncate text-[9px] text-muted-foreground">
+                              Facilitator: Blocky402 · Hedera Testnet
+                            </span>
+                          </div>
+                        </div>
+                        <a
+                          href="https://hashscan.io/testnet/transaction/0.0.7162784%401789301497.214020816"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-background/90 px-2.5 py-1 text-[10px] font-medium text-success border border-success/30 hover:bg-background transition-colors"
+                        >
+                          HashScan <ExternalLink className="size-3" />
+                        </a>
+                      </div>
+
+                      <div className="flex gap-2.5 rounded-xl bg-background p-3 text-[11px] leading-[1.55] text-muted-foreground border border-border/80 shadow-2xs">
+                        <span className="grid size-5.5 shrink-0 place-items-center rounded-full bg-success text-primary-foreground">
+                          <Check className="size-3 stroke-[2.5]" />
+                        </span>
+                        <p>
+                          <strong className="text-foreground">Response unlocked:</strong> ERC-4626
+                          converts assets to shares via{" "}
+                          <code className="font-mono text-[10px] bg-muted px-1.5 py-0.5 rounded text-foreground font-semibold">
+                            convertToShares()
+                          </code>{" "}
+                          and calculates redemption payouts via{" "}
+                          <code className="font-mono text-[10px] bg-muted px-1.5 py-0.5 rounded text-foreground font-semibold">
+                            convertToAssets()
+                          </code>
+                          .
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
