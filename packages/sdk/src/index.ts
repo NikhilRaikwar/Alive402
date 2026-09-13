@@ -84,3 +84,43 @@ export function createAlive402(config: Alive402Config) {
     },
   };
 }
+
+/**
+ * Server-only World enrollment helper. It deliberately excludes session-cookie
+ * handling because every framework owns cookies differently; callers persist
+ * the returned enrollment and resolve it on protected requests.
+ */
+export function createWorldEnrollment(input: {
+  providerId: string;
+  appId: string;
+  rpId: string;
+  signingKey: string;
+  action: string;
+  calls: number;
+  store: Alive402Config["trial"]["store"];
+}) {
+  const alive402 = createAlive402({
+    providerId: input.providerId,
+    world: {
+      appId: input.appId,
+      rpId: input.rpId,
+      signingKey: input.signingKey,
+      action: input.action,
+    },
+    trial: { calls: input.calls, store: input.store },
+    // Enrollment does not use payment configuration. A structurally complete
+    // placeholder keeps the core policy construction in one audited path.
+    payment: {
+      network: "hedera:testnet",
+      facilitatorUrl: "https://api.testnet.blocky402.com",
+      asset: "0.0.429274",
+      amount: "1",
+      payTo: "enrollment-only",
+    },
+  });
+  return {
+    createRpSignature: alive402.createRpSignature,
+    createWorldChallenge: alive402.createWorldChallenge,
+    verifyEnrollment: alive402.verifyEnrollment,
+  };
+}
