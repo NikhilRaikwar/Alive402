@@ -125,6 +125,26 @@ Copy [`.env.example`](.env.example). Keep all private keys and server credential
 
 `packages/sdk` contains the core policy layer. Its `createAlive402()` API exposes `createRpSignature()`, `createWorldChallenge()`, `verifyEnrollment()`, `decideAccess()`, and `protect()` for existing HTTP handlers. The builder route (`/builders`) shows the integration pattern for an existing API.
 
+### Publish the SDK
+
+The package is prepared as `@alive402/sdk@0.1.0`. After creating the `@alive402` npm organization or granting the publishing account access, run:
+
+```powershell
+npm login
+npm whoami
+npm run sdk:build
+npm pack --workspace=@alive402/sdk --dry-run --cache "$env:TEMP\\alive402-npm-cache"
+npm publish --workspace=@alive402/sdk --access public
+```
+
+If npm reports that the scope does not exist or access is denied, create the `@alive402` organization at npmjs.com, invite the publishing account as an owner, then retry only the final publish command. Use `--provenance` only from a supported CI release workflow with npm OIDC configured.
+
+### World demo flow
+
+On desktop, select **Verify for one free call**. IDKit shows a QR code. Scan it with the World App on a phone, complete the live Selfie Check, and approve the proof. The proof returns to the desktop page, Alive402 verifies it server-side, creates a secure session, and reveals one promotional call. The next request returns HTTP 402 and the capped demo agent can pay the exact Hedera Testnet USDC requirement.
+
+The deployed World application must have `https://alive402.vercel.app` authorized, Selfie Check Sandbox enabled, and `WORLD_ENVIRONMENT=staging` configured in Vercel.
+
 ## Demo and submission materials
 
 - [Judge demo runbook](docs/DEMO_RUNBOOK.md)
@@ -133,6 +153,7 @@ Copy [`.env.example`](.env.example). Keep all private keys and server credential
 - [World Selfie Check feedback](docs/WORLD_FEEDBACK.md)
 - [Hedera x402 payment evidence](docs/X402_PAYMENT_FLOW.md)
 - [Deployment guide](docs/DEPLOYMENT.md)
+- [Four-minute video script](docs/VIDEO_SCRIPT.md)
 
 ## License
 
