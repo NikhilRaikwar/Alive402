@@ -52,3 +52,30 @@ export interface Alive402Config {
     payTo: string;
   };
 }
+
+export interface Alive402PaymentConfig {
+  network: "hedera:testnet" | "hedera:mainnet";
+  facilitatorUrl: string;
+  asset: string;
+  amount: string;
+  payTo: string;
+}
+
+export interface Alive402AccessEvent {
+  mode: AccessMode;
+  decision: "promotion_consumed" | "payment_required" | "settled" | "payment_failed";
+  transaction?: string;
+  amount?: string;
+}
+
+export interface WithAlive402Options {
+  providerId: string;
+  world: {
+    action: string;
+    resolveEnrollment: (request: Request) => Promise<Enrollment | null>;
+  };
+  trial: { freeCalls: number; store: Alive402Store };
+  payment: Alive402PaymentConfig;
+  onAccessRun?: (event: Alive402AccessEvent) => Promise<void> | void;
+  resource?: { url: string; description: string; serviceName: string; mimeType?: string };
+}

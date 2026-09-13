@@ -10,6 +10,7 @@ import { createClientHederaSigner, PrivateKey } from "@x402/hedera";
 import { x402Client } from "@x402/core/client";
 import { wrapFetchWithPayment } from "@x402/fetch";
 import { env } from "./env";
+import { createHederaPaidFetch } from "@alive402/sdk";
 
 const resourceInfo = {
   url: "/api/demo/inference",
@@ -113,26 +114,15 @@ export async function settleVerifiedPayment(
 export async function createPaidFetch() {
   if (!env.hederaPayerId || !env.hederaPayerKey)
     throw new Error("Demo agent Hedera credentials are not configured");
-  const signer = createClientHederaSigner(
-    env.hederaPayerId,
-    PrivateKey.fromStringECDSA(env.hederaPayerKey),
-    { network: "hedera:testnet" },
-  );
-  const client = new x402Client()
-    .register("hedera:*", new HederaClientScheme(signer))
-    .setSpendControls({
-      allowedAssets: [
-        { network: "hedera:testnet", asset: "0.0.429274", maxAmountPerPayment: "1000" },
-      ],
-    })
-    .registerPolicy((_version, requirements) =>
-      requirements.filter(
-        (requirement) =>
-          requirement.network === "hedera:testnet" &&
-          requirement.asset === "0.0.429274" &&
-          requirement.payTo === env.hederaReceiverId &&
-          BigInt(requirement.amount) <= 1000n,
-      ),
-    );
-  return wrapFetchWithPayment(fetch, client);
+  return createHederaPaidFetch({
+    accountId: env.hederaPayerId,
+    privateKey: env.hederaPayerKey,
+    payment: {
+      network: "hedera:testnet",
+      facilitatorUrl: env.facilitatorUrl,
+      asset: "0.0.429274",
+      amount: "1000",
+      payTo: env.hederaReceiverId,
+    },
+  });
 }

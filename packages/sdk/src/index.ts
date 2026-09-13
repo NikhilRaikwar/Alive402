@@ -5,6 +5,8 @@ import type { AccessMode, Alive402Config, Enrollment } from "./types.ts";
 
 export * from "./types.ts";
 export * from "./memory-store.ts";
+export * from "./middleware.ts";
+export * from "./client.ts";
 
 export function nullifierHexToDecimal(value: string): string {
   if (!/^0x[0-9a-fA-F]{1,64}$/.test(value)) throw new Error("Invalid World nullifier");

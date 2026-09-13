@@ -1,6 +1,9 @@
 {
   "name": "tanstack_start_ts",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -12,6 +15,8 @@
     "format": "node node_modules/prettier/bin/prettier.cjs --write .",
     "typecheck": "node node_modules/typescript/bin/tsc --noEmit",
     "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "sdk:build": "npm run build --workspace=@alive402/sdk",
+    "sdk:test-pack": "npm run build --workspace=@alive402/sdk && npm pack --workspace=@alive402/sdk --dry-run",
     "hedera:associate-receiver": "node tools/associate-receiver-usdc.mjs"
   },
   "overrides": {
@@ -95,6 +100,7 @@
     "globals": "^15.15.0",
     "nitro": "3.0.260603-beta",
     "prettier": "^3.7.3",
+    "tsup": "^8.5.1",
     "tsx": "^4.20.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",

@@ -3,7 +3,28 @@
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
+  "description": "World Selfie Check fair-trial middleware and Hedera x402 payment client.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikhilRaikwar/Alive402.git",
+    "directory": "packages/sdk"
+  },
+  "engines": { "node": ">=20" },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "prepack": "npm run build"
+  },
   "exports": {
-    ".": "./src/index.ts"
-  }
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./client": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "dependencies": {
+    "@worldcoin/idkit-core": "^4.2.4",
+    "@x402/core": "^2.25.0",
+    "@x402/fetch": "^2.25.0",
+    "@x402/hedera": "^2.25.0"
+  },
+  "peerDependencies": { "typescript": ">=5" }
 }
