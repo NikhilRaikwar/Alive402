@@ -65,7 +65,7 @@ export const POST = withAlive402(existingHandler, {
               <code className="mt-2 block break-all text-sm">{action}</code>
             </div>
           </section>
-          <section className="overflow-hidden rounded-2xl border border-border bg-code text-white">
+          <section className="min-w-0 overflow-hidden rounded-2xl border border-border bg-code text-white">
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
               <div className="flex items-center gap-2 text-sm font-semibold">
                 <Terminal className="size-4" /> TypeScript
@@ -77,7 +77,7 @@ export const POST = withAlive402(existingHandler, {
                 <Copy className="size-3.5" /> Copy
               </button>
             </div>
-            <pre className="overflow-x-auto p-5 text-[13px] leading-6 text-slate-200">
+            <pre className="whitespace-pre-wrap break-words p-5 font-mono text-[13px] leading-6 text-slate-200">
               <code>{code}</code>
             </pre>
           </section>

@@ -21,6 +21,13 @@ const sections = [
     "The client signs PAYMENT-SIGNATURE. Blocky402 verifies the partially signed transaction, pays the network fee, settles on Hedera, and the API returns PAYMENT-RESPONSE.",
   ],
 ] as const;
+
+const tableOfContents = [
+  ["Architecture", "architecture"],
+  ["Environment", "environment"],
+  ["HTTP contract", "http-contract"],
+  ["Security", "security"],
+] as const;
 function DocsPage() {
   return (
     <PageShell>
@@ -33,15 +40,20 @@ function DocsPage() {
         <div className="mt-12 grid gap-10 lg:grid-cols-[180px_1fr]">
           <aside className="text-sm">
             <p className="font-semibold">On this page</p>
-            <div className="mt-3 space-y-2 text-muted-foreground">
-              <p>Architecture</p>
-              <p>Environment</p>
-              <p>HTTP contract</p>
-              <p>Security</p>
-            </div>
+            <nav className="mt-3 space-y-1" aria-label="On this page">
+              {tableOfContents.map(([label, id]) => (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  className="block rounded-md px-2 py-1.5 text-muted-foreground transition-colors hover:bg-soft-blue hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
           </aside>
           <article className="space-y-10">
-            <section>
+            <section id="architecture" className="scroll-mt-24">
               <h2 className="text-2xl font-bold">Architecture</h2>
               <div className="mt-5 space-y-4">
                 {sections.map(([title, copy]) => (
@@ -52,19 +64,19 @@ function DocsPage() {
                 ))}
               </div>
             </section>
-            <section>
+            <section id="environment" className="scroll-mt-24">
               <h2 className="text-2xl font-bold">Required environment</h2>
               <Code
                 text={`WORLD_APP_ID=app_...\nWORLD_RP_ID=rp_...\nWORLD_RP_SIGNING_KEY=...\nSUPABASE_URL=https://...supabase.co\nSUPABASE_SECRET_KEY=...\nHEDERA_AGENT_ACCOUNT_ID=0.0...\nHEDERA_AGENT_PRIVATE_KEY=0x...\nHEDERA_SERVICE_ACCOUNT_ID=0.0...\nHEDERA_SERVICE_PRIVATE_KEY=0x...\nOPENROUTER_API_KEY=...\nPUBLIC_APP_URL=https://alive402.vercel.app`}
               />
             </section>
-            <section>
+            <section id="http-contract" className="scroll-mt-24">
               <h2 className="text-2xl font-bold">Canonical HTTP exchange</h2>
               <Code
                 text={`POST /api/demo/inference\n→ 402 Payment Required\nPAYMENT-REQUIRED: <base64 x402 v2 declaration>\n\nPOST /api/demo/inference\nPAYMENT-SIGNATURE: <partially signed Hedera transaction>\n→ 200 OK\nPAYMENT-RESPONSE: <Blocky402 settlement receipt>`}
               />
             </section>
-            <section>
+            <section id="security" className="scroll-mt-24">
               <h2 className="text-2xl font-bold">Security decisions</h2>
               <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
                 <li>Selfie images and raw proof payloads are never persisted.</li>

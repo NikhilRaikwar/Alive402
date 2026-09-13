@@ -111,7 +111,11 @@ export const POST = withAlive402(handler, {
   providerId: "acme-ai",
   world: { action: "alive402-acme-ai-trial-v1", resolveEnrollment },
   trial: { freeCalls: 1, store },
-  payment: { network: "hedera:testnet", asset: "0.0.429274", amount: "1000", payTo, facilitatorUrl }
+  payment: {
+    network: "hedera:testnet", asset: "0.0.429274", amount: "1000",
+    payTo: process.env.HEDERA_SERVICE_ACCOUNT_ID!,
+    facilitatorUrl: process.env.BLOCKY402_FACILITATOR_URL!
+  }
 });`,
   Python: `import requests
 
@@ -818,9 +822,15 @@ function BuilderSection() {
               aria-labelledby={`tab-${language}`}
               className="p-5"
             >
-              <pre className="min-h-[170px] overflow-x-auto font-mono text-[12px] leading-[1.65] text-primary-foreground/90 selection:bg-primary/40 selection:text-white">
+              <pre className="min-h-[170px] whitespace-pre-wrap break-words font-mono text-[12px] leading-[1.65] text-primary-foreground/90 selection:bg-primary/40 selection:text-white">
                 <code>{codeSamples[language]}</code>
               </pre>
+              {(language === "Python" || language === "cURL") && (
+                <p className="mt-3 text-[11px] leading-5 text-primary-foreground/60">
+                  This example inspects the live 402 response. A compatible Hedera x402 signer is
+                  required to create a paid retry.
+                </p>
+              )}
             </div>
           </div>
 
