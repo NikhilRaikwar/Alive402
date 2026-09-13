@@ -1,0 +1,9 @@
+{
+  "name": "@alive402/sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
