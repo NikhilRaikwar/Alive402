@@ -1,5 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import type { AccessRun, Alive402Store, Enrollment } from "@alive402/sdk";
+import type { AccessRun, Alive402Store, Enrollment, WorldChallenge } from "@alive402/sdk";
 
 export class SupabaseAlive402Store implements Alive402Store {
   // `numeric(78,0)` nullifiers must travel as decimal strings. The generated
@@ -86,6 +86,22 @@ export class SupabaseAlive402Store implements Alive402Store {
       .maybeSingle();
     if (result.error) throw result.error;
     return result.data ? this.mapEnrollment(result.data) : null;
+  }
+
+  async createWorldChallenge(challenge: WorldChallenge) {
+    const { error } = await this.client.from("alive402_world_challenges").insert({
+      signal_hash: challenge.signalHash,
+      expires_at: challenge.expiresAt,
+    });
+    if (error) throw error;
+  }
+
+  async consumeWorldChallenge(signalHash: string) {
+    const { data, error } = await this.client.rpc("consume_alive402_world_challenge", {
+      signal_hash_input: signalHash,
+    });
+    if (error) throw error;
+    return data === true;
   }
 
   async recordRun(run: AccessRun) {

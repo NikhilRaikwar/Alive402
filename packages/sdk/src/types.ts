@@ -21,12 +21,19 @@ export interface AccessRun {
   amount?: string;
 }
 
+export interface WorldChallenge {
+  signalHash: string;
+  expiresAt: string;
+}
+
 export interface Alive402Store {
   grant(input: Omit<Enrollment, "id" | "consumed" | "verifiedAt">): Promise<Enrollment>;
   getEnrollment(providerId: string, action: string, nullifier: string): Promise<Enrollment | null>;
   consumePromotion(enrollmentId: string): Promise<boolean>;
   createSession(enrollmentId: string, tokenHash: string, expiresAt: string): Promise<void>;
   resolveSession(tokenHash: string): Promise<Enrollment | null>;
+  createWorldChallenge(challenge: WorldChallenge): Promise<void>;
+  consumeWorldChallenge(signalHash: string): Promise<boolean>;
   recordRun(run: AccessRun): Promise<void>;
   updateRun(id: string, patch: Partial<AccessRun>): Promise<void>;
   getRun(id: string): Promise<AccessRun | null>;

@@ -37,6 +37,7 @@ type SignData = {
   rp_id: `rp_${string}`;
   action: string;
   environment: "production" | "staging";
+  signal: string;
 };
 type Result = {
   runId: string;
@@ -308,7 +309,7 @@ function DemoPage() {
           rp_context={rpContext}
           environment={sign.environment}
           allow_legacy_proofs={true}
-          preset={selfieCheckLegacy({ signal: "alive402-demo" })}
+          preset={selfieCheckLegacy({ signal: sign.signal })}
           handleVerify={verify}
           onSuccess={async () => {
             setWorldOpen(false);

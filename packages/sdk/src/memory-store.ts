@@ -1,8 +1,9 @@
-import type { AccessRun, Alive402Store, Enrollment } from "./types.ts";
+import type { AccessRun, Alive402Store, Enrollment, WorldChallenge } from "./types.ts";
 
 export class MemoryAlive402Store implements Alive402Store {
   private enrollments = new Map<string, Enrollment>();
   private sessions = new Map<string, { enrollmentId: string; expiresAt: string }>();
+  private challenges = new Map<string, WorldChallenge & { consumed: boolean }>();
   private runs = new Map<string, AccessRun>();
   private locks = new Set<string>();
 
@@ -49,6 +50,19 @@ export class MemoryAlive402Store implements Alive402Store {
     const session = this.sessions.get(tokenHash);
     if (!session || Date.parse(session.expiresAt) <= Date.now()) return null;
     return [...this.enrollments.values()].find((item) => item.id === session.enrollmentId) ?? null;
+  }
+
+  async createWorldChallenge(challenge: WorldChallenge) {
+    this.challenges.set(challenge.signalHash.toLowerCase(), { ...challenge, consumed: false });
+  }
+
+  async consumeWorldChallenge(signalHash: string) {
+    const challenge = this.challenges.get(signalHash.toLowerCase());
+    if (!challenge || challenge.consumed || Date.parse(challenge.expiresAt) <= Date.now()) {
+      return false;
+    }
+    challenge.consumed = true;
+    return true;
   }
 
   async recordRun(run: AccessRun) {

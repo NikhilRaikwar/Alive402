@@ -26,6 +26,16 @@ test("atomically allows one promotional call", async () => {
   assert.equal(results.filter(Boolean).length, 1);
 });
 
+test("consumes a World proof signal only once", async () => {
+  const store = new MemoryAlive402Store();
+  await store.createWorldChallenge({
+    signalHash: "0xproof-signal",
+    expiresAt: new Date(Date.now() + 60_000).toISOString(),
+  });
+  assert.equal(await store.consumeWorldChallenge("0xproof-signal"), true);
+  assert.equal(await store.consumeWorldChallenge("0xproof-signal"), false);
+});
+
 test("an enrollment becomes x402 after its promotion", async () => {
   const store = new MemoryAlive402Store();
   const enrollment = await store.grant({

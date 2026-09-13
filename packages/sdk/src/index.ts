@@ -1,4 +1,5 @@
 import { signRequest } from "@worldcoin/idkit-core/signing";
+import { hashSignal } from "@worldcoin/idkit-core";
 import type { IDKitResult } from "@worldcoin/idkit-core";
 import type { AccessMode, Alive402Config, Enrollment } from "./types.ts";
 
@@ -36,6 +37,11 @@ export function createAlive402(config: Alive402Config) {
       if (!response.ok) throw new Error("World proof verification failed");
       const proof = result.responses.find((item) => "nullifier" in item);
       if (!proof || !("nullifier" in proof)) throw new Error("World proof has no nullifier");
+      if (!("signal_hash" in proof) || !proof.signal_hash)
+        throw new Error("World proof is missing its request signal");
+      const signalHash = String(proof.signal_hash).toLowerCase();
+      if (!(await config.trial.store.consumeWorldChallenge(signalHash)))
+        throw new Error("World proof request expired or was already used");
       const nullifier = nullifierHexToDecimal(String(proof.nullifier));
       const existing = await config.trial.store.getEnrollment(
         config.providerId,
@@ -51,6 +57,14 @@ export function createAlive402(config: Alive402Config) {
         granted: config.trial.calls,
       });
       return { enrollment, alreadyClaimed: false };
+    },
+    async createWorldChallenge(signal: string) {
+      const signalHash = hashSignal(signal).toLowerCase();
+      await config.trial.store.createWorldChallenge({
+        signalHash,
+        expiresAt: new Date(Date.now() + 5 * 60_000).toISOString(),
+      });
+      return signalHash;
     },
     async decideAccess(
       enrollment: Enrollment | null,
