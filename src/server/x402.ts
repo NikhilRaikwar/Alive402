@@ -10,7 +10,7 @@ import { createClientHederaSigner, PrivateKey } from "@x402/hedera";
 import { x402Client } from "@x402/core/client";
 import { wrapFetchWithPayment } from "@x402/fetch";
 import { env } from "./env";
-import { createHederaPaidFetch } from "@alive402/sdk";
+import { createHederaPaidFetch } from "@nikhilraikwar/alive402-sdk";
 
 const resourceInfo = {
   url: "/api/demo/inference",

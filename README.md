@@ -127,17 +127,17 @@ Copy [`.env.example`](.env.example). Keep all private keys and server credential
 
 ### Publish the SDK
 
-The package is prepared as `@alive402/sdk@0.1.0`. After creating the `@alive402` npm organization or granting the publishing account access, run:
+The package is prepared as `@nikhilraikwar/alive402-sdk@0.1.0`. Run:
 
 ```powershell
 npm login
 npm whoami
 npm run sdk:build
-npm pack --workspace=@alive402/sdk --dry-run --cache "$env:TEMP\\alive402-npm-cache"
-npm publish --workspace=@alive402/sdk --access public
+npm pack --workspace=@nikhilraikwar/alive402-sdk --dry-run --cache "$env:TEMP\alive402-npm-cache"
+npm publish --workspace=@nikhilraikwar/alive402-sdk --access public
 ```
 
-If npm reports that the scope does not exist or access is denied, create the `@alive402` organization at npmjs.com, invite the publishing account as an owner, then retry only the final publish command. Use `--provenance` only from a supported CI release workflow with npm OIDC configured.
+If npm reports an access error, confirm that the logged-in npm account owns the `@nikhilraikwar` scope, then retry only the final publish command. Use `--provenance` only from a supported CI release workflow with npm OIDC configured.
 
 ### World demo flow
 

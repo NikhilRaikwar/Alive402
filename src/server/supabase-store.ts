@@ -1,5 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import type { AccessRun, Alive402Store, Enrollment, WorldChallenge } from "@alive402/sdk";
+import type { AccessRun, Alive402Store, Enrollment, WorldChallenge } from "@nikhilraikwar/alive402-sdk";
 
 export class SupabaseAlive402Store implements Alive402Store {
   // `numeric(78,0)` nullifiers must travel as decimal strings. The generated

@@ -31,7 +31,7 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@alive402/sdk": ["./packages/sdk/src/index.ts"]
+      "@nikhilraikwar/alive402-sdk": ["./packages/sdk/src/index.ts"]
     }
   }
 }

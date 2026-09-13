@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Clock, Gift, ReceiptText, RefreshCw, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import type { AccessRun } from "@alive402/sdk";
+import type { AccessRun } from "@nikhilraikwar/alive402-sdk";
 import { PageIntro, PageShell } from "@/components/app-shell";
 
 export const Route = createFileRoute("/dashboard")({ component: DashboardPage });

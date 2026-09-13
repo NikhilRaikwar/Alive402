@@ -105,7 +105,7 @@ const steps = [
 ] as const;
 
 const codeSamples = {
-  "Node.js": `import { withAlive402 } from "@alive402/sdk";
+  "Node.js": `import { withAlive402 } from "@nikhilraikwar/alive402-sdk";
 
 export const POST = withAlive402(handler, {
   providerId: "acme-ai",

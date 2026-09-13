@@ -12,7 +12,7 @@ function BuildersPage() {
   const [price, setPrice] = useState("0.001");
   const action = `alive402-${slug || "provider"}-trial-v1`;
   const code = useMemo(
-    () => `import { withAlive402 } from "@alive402/sdk";
+    () => `import { withAlive402 } from "@nikhilraikwar/alive402-sdk";
 import { store, resolveEnrollment } from "./alive402-server.js";
 
 export const POST = withAlive402(existingHandler, {
@@ -41,7 +41,7 @@ export const POST = withAlive402(existingHandler, {
           copy="Define one fair promotional policy, paste the middleware into your existing endpoint, and let Alive402 handle World eligibility and Hedera continuation."
         />
         <div className="mt-8 flex flex-wrap items-center gap-3 rounded-xl border border-primary/15 bg-soft-blue p-4">
-          <code className="rounded bg-background px-3 py-2 text-sm font-semibold">npm install @alive402/sdk</code>
+          <code className="rounded bg-background px-3 py-2 text-sm font-semibold">npm install @nikhilraikwar/alive402-sdk</code>
           <p className="text-sm text-muted-foreground">Your World and Hedera secrets stay in server environment variables.</p>
         </div>
         <div className="mt-12 grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">

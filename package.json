@@ -15,8 +15,8 @@
     "format": "node node_modules/prettier/bin/prettier.cjs --write .",
     "typecheck": "node node_modules/typescript/bin/tsc --noEmit",
     "test": "node --test --experimental-strip-types tests/*.test.ts",
-    "sdk:build": "npm run build --workspace=@alive402/sdk",
-    "sdk:test-pack": "npm run build --workspace=@alive402/sdk && npm pack --workspace=@alive402/sdk --dry-run",
+    "sdk:build": "npm run build --workspace=@nikhilraikwar/alive402-sdk",
+    "sdk:test-pack": "npm run build --workspace=@nikhilraikwar/alive402-sdk && npm pack --workspace=@nikhilraikwar/alive402-sdk --dry-run",
     "hedera:associate-receiver": "node tools/associate-receiver-usdc.mjs"
   },
   "overrides": {

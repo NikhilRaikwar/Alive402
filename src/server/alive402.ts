@@ -1,4 +1,4 @@
-import { createAlive402, MemoryAlive402Store } from "@alive402/sdk";
+import { createAlive402, MemoryAlive402Store } from "@nikhilraikwar/alive402-sdk";
 import { env } from "./env";
 import { SupabaseAlive402Store } from "./supabase-store";
 import { readCookie, sha256 } from "./crypto";

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, ExternalLink, FileCheck2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import type { AccessRun } from "@alive402/sdk";
+import type { AccessRun } from "@nikhilraikwar/alive402-sdk";
 import { PageShell } from "@/components/app-shell";
 
 export const Route = createFileRoute("/proof/$runId")({ component: ProofPage });
