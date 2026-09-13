@@ -55,7 +55,7 @@ function DocsPage() {
             <section>
               <h2 className="text-2xl font-bold">Required environment</h2>
               <Code
-                text={`WORLD_APP_ID=app_...\nWORLD_RP_ID=rp_...\nWORLD_RP_SIGNING_KEY=...\nSUPABASE_URL=https://...supabase.co\nSUPABASE_SECRET_KEY=...\nHEDERA_AGENT_ACCOUNT_ID=0.0...\nHEDERA_AGENT_PRIVATE_KEY=0x...\nHEDERA_SERVICE_ACCOUNT_ID=0.0...\nOPENROUTER_API_KEY=...\nPUBLIC_APP_URL=https://alive402.vercel.app`}
+                text={`WORLD_APP_ID=app_...\nWORLD_RP_ID=rp_...\nWORLD_RP_SIGNING_KEY=...\nSUPABASE_URL=https://...supabase.co\nSUPABASE_SECRET_KEY=...\nHEDERA_AGENT_ACCOUNT_ID=0.0...\nHEDERA_AGENT_PRIVATE_KEY=0x...\nHEDERA_SERVICE_ACCOUNT_ID=0.0...\nHEDERA_SERVICE_PRIVATE_KEY=0x...\nOPENROUTER_API_KEY=...\nPUBLIC_APP_URL=https://alive402.vercel.app`}
               />
             </section>
             <section>

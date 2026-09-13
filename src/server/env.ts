@@ -10,6 +10,7 @@ export const env = {
   hederaPayerId: read("HEDERA_AGENT_ACCOUNT_ID"),
   hederaPayerKey: read("HEDERA_AGENT_PRIVATE_KEY"),
   hederaReceiverId: read("HEDERA_SERVICE_ACCOUNT_ID"),
+  hederaReceiverKey: read("HEDERA_SERVICE_PRIVATE_KEY"),
   facilitatorUrl: read("BLOCKY402_FACILITATOR_URL") || "https://api.testnet.blocky402.com",
   openRouterKey: read("OPENROUTER_API_KEY"),
   openRouterModel: read("OPENROUTER_MODEL") || "openai/gpt-4o-mini",

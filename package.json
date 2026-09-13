@@ -11,7 +11,8 @@
     "lint": "node node_modules/eslint/bin/eslint.js .",
     "format": "node node_modules/prettier/bin/prettier.cjs --write .",
     "typecheck": "node node_modules/typescript/bin/tsc --noEmit",
-    "test": "node --test --experimental-strip-types tests/*.test.ts"
+    "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "hedera:associate-receiver": "node tools/associate-receiver-usdc.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1"

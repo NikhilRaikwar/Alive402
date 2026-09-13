@@ -32,6 +32,7 @@ Create two ECDSA Hedera testnet accounts. Associate testnet USDC token `0.0.4292
 - Payer account ID → `HEDERA_AGENT_ACCOUNT_ID`
 - Payer ECDSA private key → `HEDERA_AGENT_PRIVATE_KEY`
 - Receiver account ID → `HEDERA_SERVICE_ACCOUNT_ID`
+- Receiver ECDSA private key → `HEDERA_SERVICE_PRIVATE_KEY` (needed only for one-time USDC association)
 - `BLOCKY402_FACILITATOR_URL=https://api.testnet.blocky402.com`
 - `DEMO_DAILY_PAYMENT_LIMIT=40` (lower this for a public demo budget)
 
