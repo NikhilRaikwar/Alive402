@@ -67,16 +67,15 @@ function DemoPage() {
   const startWorld = async () => {
     setError("");
     setBusy("world");
-    const response = await fetch("/api/world/sign", { method: "POST" });
-    const data = await response.json();
-    if (!response.ok) {
-      setError(data.error);
-      setBusy(null);
-      return;
-    }
-    setSign(data);
-    setWorldOpen(true);
-    setBusy(null);
+    try {
+      const response = await fetch("/api/world/sign", { method: "POST" });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "The World RP context could not be created");
+      setSign(data);
+      setWorldOpen(true);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "The World RP context could not be created");
+    } finally { setBusy(null); }
   };
   const verify = async (proof: IDKitResult) => {
     const response = await fetch("/api/world/verify", {
@@ -85,7 +84,7 @@ function DemoPage() {
       body: JSON.stringify(proof),
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Verification failed");
+    if (!response.ok) throw new Error(data.error || "World rejected this proof or its one-time signal expired");
   };
   const requestInference = async () => {
     setBusy("request");
@@ -324,7 +323,7 @@ function DemoPage() {
             setWorldOpen(false);
             await refresh();
           }}
-          onError={(code) => setError(`World verification stopped: ${code}`)}
+          onError={(code) => setError(`World verification did not complete: ${code}. You can start a fresh verification request.`)}
         />
       )}
     </div>

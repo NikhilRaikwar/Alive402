@@ -4,7 +4,7 @@ export const env = {
   worldAppId: read("WORLD_APP_ID"),
   worldRpId: read("WORLD_RP_ID"),
   worldSigningKey: read("WORLD_RP_SIGNING_KEY"),
-  worldEnvironment: read("WORLD_ENVIRONMENT") || "production",
+  worldEnvironment: read("WORLD_ENVIRONMENT") || "staging",
   supabaseUrl: read("SUPABASE_URL"),
   supabaseServiceKey: read("SUPABASE_SECRET_KEY") || read("SUPABASE_SERVICE_ROLE_KEY"),
   hederaPayerId: read("HEDERA_AGENT_ACCOUNT_ID"),
@@ -24,5 +24,13 @@ export function integrationStatus() {
     database: Boolean(env.supabaseUrl && env.supabaseServiceKey),
     hedera: Boolean(env.hederaPayerId && env.hederaPayerKey && env.hederaReceiverId),
     inference: Boolean(env.openRouterKey),
+  };
+}
+
+export function publicIntegrationStatus() {
+  return {
+    integrations: integrationStatus(),
+    world: { environment: env.worldEnvironment, action: "alive402-demo-v1" },
+    build: process.env["VERCEL_GIT_COMMIT_SHA"]?.slice(0, 7) ?? "local",
   };
 }

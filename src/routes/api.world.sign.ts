@@ -13,7 +13,11 @@ export const Route = createFileRoute("/api/world/sign")({
         await alive402.createWorldChallenge(signal);
         const signed = alive402.createRpSignature();
         return Response.json({
-          ...signed,
+          sig: signed.sig,
+          nonce: signed.nonce,
+          // IDKit's RpContext uses snake_case. `signRequest` returns camelCase.
+          created_at: signed.createdAt,
+          expires_at: signed.expiresAt,
           app_id: env.worldAppId,
           rp_id: env.worldRpId,
           action: alive402.config.world.action,

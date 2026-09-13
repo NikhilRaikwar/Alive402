@@ -79,7 +79,7 @@ Alive402 hosts a real x402-gated OpenRouter inference endpoint. It publishes a H
 
 ## Run locally
 
-For the ETHGlobal Selfie Check walkthrough, keep `WORLD_ENVIRONMENT=sandbox`.
+For the ETHGlobal Selfie Check Sandbox walkthrough, keep `WORLD_ENVIRONMENT=staging`.
 Use `production` only after configuring a production World app.
 
 Requirements: Node.js 22+ and npm 10+.

@@ -14,6 +14,7 @@ import { Route as BuildersRouteImport } from './routes/builders'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as DocsRouteImport } from './routes/docs'
+import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as ProofRunIdRouteImport } from './routes/proof.$runId'
 import { Route as ApiDemoAgentRunRouteImport } from './routes/api.demo.agent-run'
 import { Route as ApiDemoInferenceRouteImport } from './routes/api.demo.inference'
@@ -46,6 +47,11 @@ const DemoRoute = DemoRouteImport.update({
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProofRunIdRoute = ProofRunIdRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/demo': typeof DemoRoute
   '/docs': typeof DocsRoute
+  '/api/health': typeof ApiHealthRoute
   '/proof/$runId': typeof ProofRunIdRoute
   '/api/demo/agent-run': typeof ApiDemoAgentRunRoute
   '/api/demo/inference': typeof ApiDemoInferenceRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/demo': typeof DemoRoute
   '/docs': typeof DocsRoute
+  '/api/health': typeof ApiHealthRoute
   '/proof/$runId': typeof ProofRunIdRoute
   '/api/demo/agent-run': typeof ApiDemoAgentRunRoute
   '/api/demo/inference': typeof ApiDemoInferenceRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/demo': typeof DemoRoute
   '/docs': typeof DocsRoute
+  '/api/health': typeof ApiHealthRoute
   '/proof/$runId': typeof ProofRunIdRoute
   '/api/demo/agent-run': typeof ApiDemoAgentRunRoute
   '/api/demo/inference': typeof ApiDemoInferenceRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/demo'
     | '/docs'
+    | '/api/health'
     | '/proof/$runId'
     | '/api/demo/agent-run'
     | '/api/demo/inference'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/demo'
     | '/docs'
+    | '/api/health'
     | '/proof/$runId'
     | '/api/demo/agent-run'
     | '/api/demo/inference'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/demo'
     | '/docs'
+    | '/api/health'
     | '/proof/$runId'
     | '/api/demo/agent-run'
     | '/api/demo/inference'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   DemoRoute: typeof DemoRoute
   DocsRoute: typeof DocsRoute
+  ApiHealthRoute: typeof ApiHealthRoute
   ProofRunIdRoute: typeof ProofRunIdRoute
   ApiDemoAgentRunRoute: typeof ApiDemoAgentRunRoute
   ApiDemoInferenceRoute: typeof ApiDemoInferenceRoute
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/docs'
       fullPath: '/docs'
       preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/proof/$runId': {
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   DemoRoute: DemoRoute,
   DocsRoute: DocsRoute,
+  ApiHealthRoute: ApiHealthRoute,
   ProofRunIdRoute: ProofRunIdRoute,
   ApiDemoAgentRunRoute: ApiDemoAgentRunRoute,
   ApiDemoInferenceRoute: ApiDemoInferenceRoute,
