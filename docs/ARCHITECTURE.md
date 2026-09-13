@@ -1,6 +1,30 @@
 # Alive402 architecture
 
 ```mermaid
+flowchart TB
+  classDef person fill:#E8F0FF,stroke:#146EF5,color:#0B2458,stroke-width:2px
+  classDef world fill:#FFF1F4,stroke:#E05272,color:#64152A,stroke-width:2px
+  classDef app fill:#E9FBF4,stroke:#10A779,color:#063D2E,stroke-width:2px
+  classDef payment fill:#FFF5D9,stroke:#D99400,color:#4E3400,stroke-width:2px
+  classDef data fill:#F1EEFF,stroke:#7C5CFC,color:#30216D,stroke-width:2px
+
+  Human[Person in browser]:::person --> Gateway[Alive402 application]:::app
+  Agent[Capped payment agent]:::person --> Gateway
+  Gateway <--> World[World IDKit and<br/>Developer API]:::world
+  Gateway <--> Store[(Supabase<br/>sessions, entitlements, receipts)]:::data
+  Gateway <--> API[Protected OpenRouter<br/>inference endpoint]:::app
+  Gateway <--> Facilitator[Blocky402<br/>x402 facilitator]:::payment
+  Facilitator <--> Hedera[Hedera Testnet<br/>USDC HTS]:::payment
+```
+
+## Trust boundaries
+
+- **Browser:** receives public IDKit configuration and a short-lived proof signal. It never receives World RP signing material, Supabase secret access, payer keys, or raw payment signatures.
+- **Alive402 server:** creates signed World requests, verifies completed proofs, binds each proof to a one-time signal, consumes promotions atomically, and applies payment budget limits.
+- **Supabase:** stores only server-side state: a scoped nullifier, hashed session token, hashed World proof signal, sanitized request evidence, and settlement reference. It stores no selfie image.
+- **Blocky402 and Hedera:** determine whether a paid retry is valid and settle the configured amount to the configured merchant. Alive402 accepts only its configured testnet, asset, recipient, and maximum amount.
+
+```mermaid
 sequenceDiagram
   participant U as Human / browser
   participant W as World ID App
@@ -35,4 +59,4 @@ sequenceDiagram
   A-->>C: Answer + PAYMENT-RESPONSE
 ```
 
-The World nullifier is scoped to the relying party and action. Alive402 uses one stable action per provider campaign, so changing browser, wallet, or email does not create another entitlement for that campaign.
+The World nullifier is scoped to the relying party and action. Alive402 uses one stable action per provider campaign, so changing browser, wallet, or email does not create another entitlement for that campaign. Selfie Check remains a medium-assurance anti-abuse signal, not a claim of global uniqueness.
