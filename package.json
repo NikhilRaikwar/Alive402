@@ -51,6 +51,7 @@
     "@tanstack/react-router": "1.170.18",
     "@tanstack/react-start": "1.168.32",
     "@tanstack/router-plugin": "1.168.23",
+    "@vercel/analytics": "^2.0.1",
     "@worldcoin/idkit": "^4.2.3",
     "@worldcoin/idkit-core": "^4.2.4",
     "@x402/core": "^2.25.0",
@@ -94,9 +95,9 @@
     "globals": "^15.15.0",
     "nitro": "3.0.260603-beta",
     "prettier": "^3.7.3",
+    "tsx": "^4.20.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "tsx": "^4.20.6",
     "vite": "8.1.5"
   }
 }
