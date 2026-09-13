@@ -12,27 +12,23 @@ function BuildersPage() {
   const [price, setPrice] = useState("0.001");
   const action = `alive402-${slug || "provider"}-trial-v1`;
   const code = useMemo(
-    () => `import { createAlive402 } from "@alive402/sdk";
+    () => `import { withAlive402 } from "@alive402/sdk";
+import { store, resolveEnrollment } from "./alive402-server.js";
 
-const alive402 = createAlive402({
+export const POST = withAlive402(existingHandler, {
   providerId: "${slug}",
-  world: {
-    appId: process.env.WORLD_APP_ID,
-    rpId: process.env.WORLD_RP_ID,
-    signingKey: process.env.WORLD_RP_SIGNING_KEY,
-    action: "${action}"
-  },
-  trial: { calls: 1, store },
+  world: { action: "${action}", resolveEnrollment },
+  trial: { freeCalls: 1, store },
   payment: {
     network: "hedera:testnet",
     facilitatorUrl: "https://api.testnet.blocky402.com",
     asset: "0.0.429274",
     amount: "${Math.round(Number(price || 0) * 1_000_000)}",
     payTo: "${payTo}"
-  }
+  },
+  resource: { url: "/v1/research", description: "${company} research API", serviceName: "${company}" }
 });
-
-export const POST = alive402.protect(existingHandler);`,
+`,
     [action, payTo, price, slug],
   );
 
@@ -44,6 +40,10 @@ export const POST = alive402.protect(existingHandler);`,
           title="Wrap the API you already have."
           copy="Define one fair promotional policy, paste the middleware into your existing endpoint, and let Alive402 handle World eligibility and Hedera continuation."
         />
+        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-xl border border-primary/15 bg-soft-blue p-4">
+          <code className="rounded bg-background px-3 py-2 text-sm font-semibold">npm install @alive402/sdk</code>
+          <p className="text-sm text-muted-foreground">Your World and Hedera secrets stay in server environment variables.</p>
+        </div>
         <div className="mt-12 grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">
           <section className="rounded-2xl border border-border p-6">
             <h2 className="text-xl font-bold">Create a trial policy</h2>

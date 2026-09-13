@@ -108,27 +108,21 @@ const codeSamples = {
   "Node.js": `import { withAlive402 } from "@alive402/sdk";
 
 export const POST = withAlive402(handler, {
-  trial: "world-selfie-check",
-  freeCalls: 1,
-  network: "hedera-testnet",
-  price: "0.01 USDC"
+  providerId: "acme-ai",
+  world: { action: "alive402-acme-ai-trial-v1", resolveEnrollment },
+  trial: { freeCalls: 1, store },
+  payment: { network: "hedera:testnet", asset: "0.0.429274", amount: "1000", payTo, facilitatorUrl }
 });`,
-  Python: `from alive402 import with_alive402
+  Python: `import requests
 
-@with_alive402(
-  trial="world-selfie-check",
-  free_calls=1,
-  network="hedera-testnet",
-  price="0.01 USDC"
-)
-def handler(request):
-  return research(request)`,
-  cURL: `curl -X POST https://api.example.com/research \\
+response = requests.post("https://alive402.vercel.app/api/demo/inference", json={"prompt": "Explain ERC-4626"})
+if response.status_code == 402:
+    required = response.headers["PAYMENT-REQUIRED"]
+    print("A compatible Hedera x402 signer is required for paid retry.")`,
+  cURL: `curl -i -X POST https://alive402.vercel.app/api/demo/inference \\
   -H "Content-Type: application/json" \\
-  -H "X-Alive402-Trial: world-selfie-check" \\
   -d '{
-    "prompt": "Explain ERC-4626",
-    "network": "hedera-testnet"
+    "prompt": "Explain ERC-4626"
   }'`,
 } as const;
 
@@ -867,6 +861,12 @@ function Index() {
           </a>
           <a href="/builders" className="transition-colors hover:text-foreground">
             For builders
+          </a>
+          <a href="/dashboard" className="transition-colors hover:text-foreground">
+            Dashboard
+          </a>
+          <a href="/docs" className="transition-colors hover:text-foreground">
+            Docs
           </a>
         </div>
         <div className="flex items-center justify-end gap-3">
