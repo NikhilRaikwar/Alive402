@@ -4,7 +4,7 @@
 
 Alive402 is a fair-trial gateway for AI APIs. The intended production flow grants one promotional request to a Selfie Check-verified enrollment. After that entitlement is consumed, the same endpoint returns HTTP `402 Payment Required`; a budgeted client pays through x402 on Hedera and retries the request.
 
-This repository currently contains the responsive landing page and interactive product-flow prototype. World proof verification, persistent entitlement enforcement, and Blocky402 settlement are the next implementation milestones. The UI labels the current sequence as a prototype and must not be treated as transaction evidence.
+This repository contains a working full-stack implementation: World IDKit enrollment, persistent one-use entitlements, an x402 v2 Hedera resource server, a capped autonomous payment client, OpenRouter inference, execution receipts, provider dashboard, and reusable TypeScript SDK.
 
 ## Why Alive402
 
@@ -17,9 +17,9 @@ Email addresses, wallets and cookies are weak free-trial boundaries. Alive402 is
 
 Selfie Check is a medium-assurance credential. Alive402 does not claim that it proves global uniqueness or guarantees one person can never create another account.
 
-## Current UI
+## Sixty-second demo
 
-The landing page demonstrates the planned user journey:
+Open `/demo` and complete this journey:
 
 1. Verify through World Selfie Check.
 2. Consume one promotional API call.
@@ -27,7 +27,7 @@ The landing page demonstrates the planned user journey:
 4. Run a budgeted payment client.
 5. Settle on Hedera and unlock the response.
 
-The page also presents the planned `withAlive402` middleware interface for providers. The package shown in the code sample has not been published yet.
+Every displayed verification, entitlement, 402 challenge and transaction comes from server state. When required environment values are missing, the UI says the corresponding integration is unconfigured instead of fabricating success.
 
 ## Technology
 
@@ -39,13 +39,11 @@ The page also presents the planned `withAlive402` middleware interface for provi
 - Radix UI
 - Lucide React
 
-Planned integrations:
-
 - World IDKit and Selfie Check Sandbox
-- x402 resource server and client
-- Blocky402 facilitator
-- Hedera Testnet payment settlement
-- persistent one-use entitlement store
+- x402 v2 resource server and autonomous client
+- Blocky402 facilitator on Hedera Testnet
+- Supabase Postgres with atomic entitlement consumption
+- OpenRouter-compatible AI inference
 
 ## Run locally
 
@@ -58,6 +56,7 @@ Requirements:
 git clone https://github.com/NikhilRaikwar/Alive402.git
 cd Alive402
 npm install
+npm run typecheck
 npm run dev
 ```
 
@@ -72,7 +71,9 @@ npm run lint
 npm run format
 ```
 
-## Planned architecture
+Copy `.env.example` to `.env.local`, supply the World, Supabase, Hedera and OpenRouter values, and run [`supabase/migrations/001_alive402.sql`](supabase/migrations/001_alive402.sql) in the Supabase SQL editor.
+
+## Architecture
 
 ```text
 Browser or autonomous client
@@ -102,11 +103,11 @@ Alive402 is being built from scratch for ETHOnline 2026 and targets:
 - **World — Selfie Check:** meaningful use for trial eligibility and abuse resistance, with a working Sandbox flow and required feedback document.
 - **Hedera — AI & Agentic Payments:** a live x402-gated service settled through Blocky402, plus a client that completes a real paid request end to end.
 
-Qualification is only claimed after the corresponding integrations and public evidence are live.
+The app exposes the literal `PAYMENT-REQUIRED`, `PAYMENT-SIGNATURE`, and `PAYMENT-RESPONSE` exchange. A successful paid run links to its Hedera Testnet transaction on HashScan.
 
 ## Documentation
 
-The full product requirements document is maintained at [`docs/PRD.md`](docs/PRD.md). Before submission, the architecture diagram, World integration feedback and verified transaction evidence will also be added to this repository.
+The full product requirements document is at [`docs/PRD.md`](docs/PRD.md). See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/WORLD_FEEDBACK.md`](docs/WORLD_FEEDBACK.md), and [`docs/X402_PAYMENT_FLOW.md`](docs/X402_PAYMENT_FLOW.md) for setup and judge-facing evidence.
 
 ## License
 
