@@ -2,6 +2,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { AccessRun, Alive402Store, Enrollment } from "@alive402/sdk";
 
 export class SupabaseAlive402Store implements Alive402Store {
+  // `numeric(78,0)` nullifiers must travel as decimal strings. The generated
+  // Supabase type represents `numeric` as number, which would lose precision.
   private client: SupabaseClient;
   constructor(url: string, serviceKey: string) {
     this.client = createClient(url, serviceKey, { auth: { persistSession: false } });
