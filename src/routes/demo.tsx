@@ -36,7 +36,7 @@ type SignData = {
   app_id: `app_${string}`;
   rp_id: `rp_${string}`;
   action: string;
-  environment: "production" | "staging";
+  environment: "production" | "staging" | "sandbox";
   signal: string;
 };
 type Result = {
@@ -46,6 +46,7 @@ type Result = {
   latencyMs: number;
   transaction?: string;
   network?: string;
+  paymentResponse?: string;
 };
 
 function DemoPage() {
@@ -242,6 +243,9 @@ function DemoPage() {
                       <p className="mt-1 text-sm text-muted-foreground">
                         0.001 USDC · Hedera testnet · Blocky402
                       </p>
+                      <p className="mt-2 font-mono text-[11px] text-red-700">
+                        PAYMENT-REQUIRED received from /api/demo/inference
+                      </p>
                     </div>
                   </div>
                   <button
@@ -254,7 +258,7 @@ function DemoPage() {
                     ) : (
                       <Zap className="size-4 text-yellow-300" />
                     )}{" "}
-                    Let demo agent pay and continue
+                    Run capped agent · pay 0.001 USDC
                   </button>
                 </div>
               )}
@@ -268,14 +272,19 @@ function DemoPage() {
                   </div>
                   <p className="mt-3 whitespace-pre-wrap text-sm leading-6">{result.answer}</p>
                   {result.transaction && (
-                    <a
-                      className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary"
-                      target="_blank"
-                      rel="noreferrer"
-                      href={`https://hashscan.io/testnet/transaction/${encodeURIComponent(result.transaction)}`}
-                    >
-                      View settlement on HashScan <ExternalLink className="size-3.5" />
-                    </a>
+                    <div className="mt-4 rounded-lg border border-emerald-200 bg-success-soft px-3 py-2.5 text-sm text-emerald-800">
+                      <p className="font-mono text-[11px] font-semibold uppercase tracking-wide">
+                        PAYMENT-RESPONSE verified
+                      </p>
+                      <a
+                        className="mt-1 inline-flex items-center gap-1 font-semibold text-primary"
+                        target="_blank"
+                        rel="noreferrer"
+                        href={`https://hashscan.io/testnet/transaction/${encodeURIComponent(result.transaction)}`}
+                      >
+                        View Hedera settlement <ExternalLink className="size-3.5" />
+                      </a>
+                    </div>
                   )}
                   <div className="mt-3">
                     <Link
